@@ -18,32 +18,33 @@
     <button onclick="sendMessage()">إرسال</button>
 
     <script>
-        const chatDiv = document.getElementById("chat");
-        const HF_API_TOKEN = ""; 
-        const MODEL_URL = "https://smith-b-company-chatbot.hf.space"
+  const API_URL = "https://my-website-eight-virid-46.vercel.app/"; // بدّلي بالرابط بتاعك
 
-        function addMessage(sender, text) {
-            chatDiv.innerHTML += `<p><strong>${sender}:</strong> ${text}</p>`;
-            chatDiv.scrollTop = chatDiv.scrollHeight;
-        }
+  const chat = document.getElementById("chat");
+  const input = document.getElementById("userInput");
 
-        async function sendMessage() {
-            let userText = document.getElementById("userInput").value;
-            if (!userText) return;
-            addMessage("أنت", userText);
-            document.getElementById("userInput").value = "";
+  function add(sender, text) {
+    chat.innerHTML += `<p><strong>${sender}:</strong> ${text}</p>`;
+    chat.scrollTop = chat.scrollHeight;
+  }
 
-            const response = await fetch(MODEL_URL, {
-                method: "POST",
-                headers: {
-                    "Authorization": `Bearer ${HF_API_TOKEN}`,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ inputs: userText })
-            });
-            const data = await response.json();
-            addMessage("الذكاء الاصطناعي", data[0]?.generated_text || "لم أفهم.");
-        }
-    </script>
+  async function sendMessage() {
+    const message = input.value.trim();
+    if (!message) return;
+    add("أنت", message);
+    input.value = "";
+
+    const res = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message })
+    });
+
+    const data = await res.json();
+    add("الذكاء الاصطناعي", data[0]?.generated_text || data.generated_text || JSON.stringify(data));
+  }
+</script>
+
 </body>
 </html>
+
