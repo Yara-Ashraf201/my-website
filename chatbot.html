@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        #chat { border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: auto; }
+        input { width: 80%; padding: 10px; }
+        button { padding: 10px; }
+    </style>
+</head>
+<body>
+    <h1>AI Chatbot</h1>
+    <div id="chat"></div>
+    <input type="text" id="userInput" placeholder="اكتب رسالتك...">
+    <button onclick="sendMessage()">إرسال</button>
+
+    <script>
+        const chatDiv = document.getElementById("chat");
+        const HF_API_TOKEN = ""; 
+        const MODEL_URL = "https://smith-b-company-chatbot.hf.space"
+
+        function addMessage(sender, text) {
+            chatDiv.innerHTML += `<p><strong>${sender}:</strong> ${text}</p>`;
+            chatDiv.scrollTop = chatDiv.scrollHeight;
+        }
+
+        async function sendMessage() {
+            let userText = document.getElementById("userInput").value;
+            if (!userText) return;
+            addMessage("أنت", userText);
+            document.getElementById("userInput").value = "";
+
+            const response = await fetch(MODEL_URL, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${HF_API_TOKEN}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ inputs: userText })
+            });
+            const data = await response.json();
+            addMessage("الذكاء الاصطناعي", data[0]?.generated_text || "لم أفهم.");
+        }
+    </script>
+</body>
+</html>

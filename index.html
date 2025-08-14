@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EduMind - Home</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>EduMind</header>
+
+  <div class="tabs">
+    <div class="tab active" data-tab="home">Home</div>
+    <div class="tab" data-tab="sections">Sections</div>
+  </div>
+
+  <main>
+    <section id="homeTab">
+      <h2>Welcome to EduMind</h2>
+
+      <label for="yearSelect">Select your Academic Year:</label>
+      <select id="yearSelect">
+        <option value="">-- Choose your year --</option>
+        <option value="first">First Year</option>
+        <option value="second">Second Year</option>
+        <option value="third">Third Year</option>
+      </select>
+
+      <label for="learningStyle">Choose your Learning Style:</label>
+      <select id="learningStyle">
+        <option value="">-- Choose your style --</option>
+        <option value="visual">Visual</option>
+        <option value="auditory">Auditory</option>
+        <option value="kinesthetic">Kinesthetic</option>
+        <option value="reading">Reading/Writing</option>
+      </select>
+
+    <button id="saveBtn" disabled>Save My Preferences</button>
+
+      <div id="successMsg" class="message hidden">Preferences saved successfully!</div>
+    </section>
+
+    <section id="sectionsTab" class="hidden">
+      <h2>Explore EduMind Sections</h2>
+      <nav class="sections-links">
+        <a href="chatbot.html">Chatbot</a>
+        <a href="summarizer.html">Lessons</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="summarises.html">Text Summarizer</a>
+
+      </nav>
+      <p style="margin-top: 20px; font-style: italic; color: #666;">
+        Note: Please save your academic year and learning style in the Home tab first.
+      </p>
+    </section>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
